@@ -16,8 +16,10 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    myslider.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    myslider.h
 
 FORMS    += mainwindow.ui
