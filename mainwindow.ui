@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>154</height>
+    <height>180</height>
    </rect>
   </property>
   <property name="acceptDrops">
@@ -29,7 +29,7 @@
       <x>10</x>
       <y>-1</y>
       <width>381</width>
-      <height>131</height>
+      <height>158</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -130,6 +130,13 @@
         </layout>
        </item>
       </layout>
+     </item>
+     <item>
+      <widget class="QPushButton" name="historyBtn">
+       <property name="text">
+        <string>Show History</string>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QCheckBox" name="repeatCB">

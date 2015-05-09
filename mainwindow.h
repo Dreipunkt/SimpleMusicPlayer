@@ -30,6 +30,7 @@ along with SimpleMusicPlayer. If not, see <http://www.gnu.org/licenses/>.
 #include <QDebug>
 #include <QtWidgets>
 #include <string>
+#include "history.h"
 
 namespace Ui {
 class MainWindow;
@@ -42,6 +43,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    void changeMedia(QUrl p);
 
 private slots:
     void on_playBtn_clicked();
@@ -66,6 +68,8 @@ private slots:
 
     void on_posSlider_sliderPressed();
 
+    void on_historyBtn_clicked();
+
 protected:
     void dropEvent(QDropEvent *ev);
     void dragEnterEvent(QDragEnterEvent *ev);
@@ -77,6 +81,8 @@ private:
     QString path;
     bool replay;
     bool posSliderPressed;
+    History *h;
+    void pathFixing();
 };
 
 #endif // MAINWINDOW_H

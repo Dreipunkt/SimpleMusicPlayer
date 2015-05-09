@@ -36,11 +36,12 @@ MainWindow::MainWindow(QWidget *parent) :
     posSliderPressed = false;
 
     player = new QMediaPlayer(this);
+    h = new History(this);
 
     setMaximumSize(size());
     setMinimumSize(size());
 
-    ui->statusBar->
+    ui->statusBar-> // no idea what that does, but too scared to delete it...yet
 
     connect(player, &QMediaPlayer::durationChanged, this, &MainWindow::on_durationChanged);
     connect(player, &QMediaPlayer::positionChanged, this, &MainWindow::on_positionChanged);
@@ -57,6 +58,7 @@ void MainWindow::on_playBtn_clicked()
 {
     if (!paused) {
         player->setMedia(QUrl::fromLocalFile(path));
+        h->add(QUrl::fromLocalFile(path));
         player->play();
         paused = false;
     }
@@ -92,29 +94,7 @@ void MainWindow::dropEvent(QDropEvent *ev)
         path += url.toString();
     }
 
-    path.replace("file://", "");
-
-    qDebug() << "DEBUG " << path;
-
-    // ********* path fixing ***********
-
-    path.replace("%5D", "]");
-    path.replace("%5B", "[");
-    path.replace("%5C", "\\");
-    path.replace("%3F", "?");
-    path.replace("%22", "\"");
-    path.replace("%25", "%");
-    path.replace("%60", "`");
-    path.replace("%3C", "<");
-    path.replace("%3E", ">");
-    path.replace("%7B", "{");
-    path.replace("%7D", "}");
-    path.replace("%5E", "^");
-    path.replace("%7C", "|");
-    path.replace("%23", "#");
-    path.replace("%3B", ";");
-
-    // *********************************
+    pathFixing();
 
     paused = false;
     on_playBtn_clicked();
@@ -175,4 +155,36 @@ void MainWindow::on_posSlider_sliderReleased()
 void MainWindow::on_posSlider_sliderPressed()
 {
     posSliderPressed = true;
+}
+
+void MainWindow::on_historyBtn_clicked()
+{
+    h->show();
+}
+
+void MainWindow::changeMedia(QUrl p) {
+    path = p.toString();
+    pathFixing();
+    paused = false;
+    on_playBtn_clicked();
+    qDebug() << "DEBUG " << path;
+}
+
+void MainWindow::pathFixing() {
+    path.replace("file://", "");
+    path.replace("%5D", "]");
+    path.replace("%5B", "[");
+    path.replace("%5C", "\\");
+    path.replace("%3F", "?");
+    path.replace("%22", "\"");
+    path.replace("%25", "%");
+    path.replace("%60", "`");
+    path.replace("%3C", "<");
+    path.replace("%3E", ">");
+    path.replace("%7B", "{");
+    path.replace("%7D", "}");
+    path.replace("%5E", "^");
+    path.replace("%7C", "|");
+    path.replace("%23", "#");
+    path.replace("%3B", ";");
 }
